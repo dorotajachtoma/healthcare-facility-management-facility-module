@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Component
 public class PhysicianMapper {
     
-    public PhysicianDTO toDTO(Physician physician) {
+    public static PhysicianDTO toDTO(Physician physician) {
         return PhysicianDTO.builder()
                 .id(physician.getId())
                 .name(physician.getName())
@@ -34,7 +34,7 @@ public class PhysicianMapper {
                 .build();
     }
 
-    public Physician toEntity(PhysicianDTO physicianDTO) {
+    public static Physician toEntity(PhysicianDTO physicianDTO) {
         return Physician.builder()
                 .name(physicianDTO.getName())
                 .surname(physicianDTO.getSurname())
