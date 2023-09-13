@@ -1,7 +1,6 @@
 package com.djachtoma.model.facility;
 
 import com.djachtoma.model.physician.Physician;
-import com.djachtoma.reference.entity.model.Address;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +20,7 @@ public class Facility {
 
     @Id
     private String id;
+    private String name;
     private Address address;
     private Set<Physician> physicians = new HashSet<>();
 }

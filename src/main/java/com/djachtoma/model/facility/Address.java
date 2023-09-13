@@ -1,23 +1,18 @@
-package com.djachtoma.model.facility.dto;
+package com.djachtoma.model.facility;
 
-import com.djachtoma.model.physician.dto.PhysicianDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
-
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class FacilityDTO {
+public class Address {
 
-    private String id;
-    private String name;
     private String city;
     private String zipCode;
     private String address;
-    private Set<PhysicianDTO> physicians;
+
 }
