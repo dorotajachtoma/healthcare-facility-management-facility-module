@@ -5,6 +5,8 @@ import com.djachtoma.model.facility.Facility;
 import com.djachtoma.model.physician.dto.PhysicianMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -18,9 +20,9 @@ public class FacilityMapper {
                 .city(facility.getAddress().getCity())
                 .zipCode(facility.getAddress().getZipCode())
                 .address(facility.getAddress().getAddress())
-                .physicians(facility.getPhysicians().stream()
+                .physicians(Objects.nonNull(facility.getPhysicians()) ? facility.getPhysicians().stream()
                         .map(PhysicianMapper::toDTO)
-                        .collect(Collectors.toSet()))
+                        .collect(Collectors.toSet()) : Collections.emptySet())
                 .build();
     }
 
@@ -32,9 +34,9 @@ public class FacilityMapper {
                         .zipCode(dto.getZipCode())
                         .address(dto.getAddress())
                         .build())
-                .physicians(dto.getPhysicians().stream()
+                .physicians(Objects.nonNull(dto.getPhysicians()) ? dto.getPhysicians().stream()
                         .map(PhysicianMapper::toEntity)
-                        .collect(Collectors.toSet()))
+                        .collect(Collectors.toSet()) : Collections.emptySet())
                 .build();
     }
 }
