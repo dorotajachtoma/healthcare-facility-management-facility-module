@@ -25,14 +25,14 @@ public class Physician extends Person {
 
     @Id
     private String id;
-    private Set<Specialization> specialization;
+    private Set<Specialization> specializations;
     private Title title;
 
     @Builder
-    public Physician(String name, String surname, LocalDateTime dateOfBirth, Gender gender, IDCard idCard, PhoneNumber phoneNumber, Address address, String id, Set<Specialization> specialization, Title title) {
+    public Physician(String name, String surname, LocalDateTime dateOfBirth, Gender gender, IDCard idCard, PhoneNumber phoneNumber, Address address, String id, Set<Specialization> specializations, Title title) {
         super(name, surname, dateOfBirth, gender, idCard, phoneNumber, address);
         this.id = id;
-        this.specialization = specialization;
+        this.specializations = specializations;
         this.title = title;
     }
 }
