@@ -38,7 +38,8 @@ public class FacilityService {
     @Transactional
     public Mono<FacilityDTO> createFacility(FacilityDTO facilityDTO) {
         Facility facility = mapper.toEntity(facilityDTO);
-        return Mono.just(mapper.toDTO(facilityRepository.save(facility)));
+        facilityRepository.save(facility);
+        return Mono.just(mapper.toDTO(facility));
     }
 
     @Transactional
@@ -69,6 +70,6 @@ public class FacilityService {
 
     private Facility getFacilityById(String id) {
         return facilityRepository.findById(id)
-                .orElseThrow(() -> new FacilityNotFoundException("Facility with provided id does not exist."));
+                .orElseThrow(() -> new FacilityNotFoundException(String.format("Facility with provided id: %s does not exist.", id)));
     }
 }
