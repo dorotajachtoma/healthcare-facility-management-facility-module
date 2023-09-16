@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Component
 public class FacilityMapper {
     
-    public static FacilityDTO toDTO(Facility facility) {
+    public FacilityDTO toDTO(Facility facility) {
         return FacilityDTO.builder()
                 .id(facility.getId())
                 .name(facility.getName())
@@ -26,7 +26,7 @@ public class FacilityMapper {
                 .build();
     }
 
-    public static Facility toEntity(FacilityDTO dto) {
+    public Facility toEntity(FacilityDTO dto) {
         return Facility.builder()
                 .name(dto.getName())
                 .address(Address.builder()
