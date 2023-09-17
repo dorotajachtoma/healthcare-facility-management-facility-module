@@ -38,8 +38,8 @@ public class FacilityService {
     @Transactional
     public Mono<FacilityDTO> createFacility(FacilityDTO facilityDTO) {
         Facility facility = mapper.toEntity(facilityDTO);
-        facilityRepository.save(facility);
-        return Mono.just(mapper.toDTO(facility));
+        FacilityDTO dto = mapper.toDTO(facilityRepository.save(facility));
+        return Mono.just(dto);
     }
 
     @Transactional
@@ -61,7 +61,7 @@ public class FacilityService {
         nullSafeUpdate(facilityDTO.getCity(), facilityDTO::getCity, x -> facility.getAddress().setCity(x));
         nullSafeUpdate(facilityDTO.getZipCode(), facilityDTO::getZipCode, x -> facility.getAddress().setZipCode(x));
         nullSafeUpdate(facilityDTO.getAddress(), facilityDTO::getAddress, x -> facility.getAddress().setAddress(x));
-        nullSafeUpdate(facilityDTO.getPhysicians(), facilityDTO::getPhysicians, x -> facility.getPhysicians().addAll(x.stream()
+        nullSafeUpdate(facilityDTO.getPhysicians(), facilityDTO::getPhysicians, x -> facility.setPhysicians(x.stream()
                 .map(PhysicianMapper::toEntity)
                 .collect(Collectors.toSet())));
         facilityRepository.save(facility);
