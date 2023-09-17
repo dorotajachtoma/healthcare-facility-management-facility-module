@@ -35,6 +35,7 @@ public class FacilityServiceTest {
     private static final String CITY = "CITY";
     private static final String ZIP_CODE = "ZIP_CODE";
     private static final String ADDRESS = "ADDRESS";
+    private static final String SURNAME = "SURNAME";
     private static final String PHONE_NUMBER = "PHONE_NUMBER";
     private static final String ID_CARD_SERIES_NUMBER = "ID_CARD_SERIES_NUMBER";
     private static final LocalDateTime DATE_OF_BIRTH = LocalDateTime.of(2023, 1, 1, 1, 1, 0);
@@ -67,7 +68,9 @@ public class FacilityServiceTest {
     public void getFacility_shouldReturnFacilityById() {
         //given
         Facility facility = getFacility();
+        FacilityDTO facilityDTO = getFacilityDTO();
         when(facilityRepository.findById(facility.getId())).thenReturn(Optional.of(facility));
+        when(facilityMapper.toDTO(facility)).thenReturn(facilityDTO);
 
         //when
         facilityService.getFacility(facility.getId());
@@ -94,7 +97,25 @@ public class FacilityServiceTest {
         //given
         FacilityDTO facilityDTO = getFacilityDTO();
         Facility facility = getFacility();
+        when(facilityRepository.findById(facility.getId())).thenReturn(Optional.of(facility));
+        when(facilityRepository.save(facility)).thenReturn(facility);
+        when(facilityMapper.toDTO(facility)).thenReturn(facilityDTO);
+
+        //when
+       facilityService.updateFacility(facility.getId(), facilityDTO);
+
+        //then
+        verify(facilityRepository, times(1)).save(facility);
+    }
+
+    @Test
+    public void updateFacility_shouldReturnUpdatedFacility() {
+        //given
+        FacilityDTO facilityDTO = getFacilityDTO();
+        Facility facility = getFacility();
         when(facilityMapper.toEntity(facilityDTO)).thenReturn(facility);
+        when(facilityRepository.save(facility)).thenReturn(facility);
+        when(facilityMapper.toDTO(facility)).thenReturn(facilityDTO);
 
         //when
         facilityService.createFacility(facilityDTO);
@@ -102,6 +123,7 @@ public class FacilityServiceTest {
         //then
         verify(facilityRepository, times(1)).save(facility);
     }
+
 
     private static Facility getFacility() {
         return Facility.builder()
@@ -129,12 +151,16 @@ public class FacilityServiceTest {
 
     private static PhysicianDTO getPhysicianDTO() {
         return PhysicianDTO.builder()
+                .id(ID)
                 .name(NAME)
+                .surname(SURNAME)
                 .dateOfBirth(DATE_OF_BIRTH)
                 .idCardSeriesNumber(ID_CARD_SERIES_NUMBER)
                 .gender(Gender.MALE.name())
                 .phoneNumber(PHONE_NUMBER)
                 .address(ADDRESS)
+                .city(CITY)
+                .zipCode(ZIP_CODE)
                 .specializations(Set.of(Specialization.EMERGENCY_MEDICINE.name()))
                 .title(Title.ACF.name())
                 .build();
@@ -142,12 +168,22 @@ public class FacilityServiceTest {
 
     private static Physician getPhysician() {
         return Physician.builder()
+                .id(ID)
                 .name(NAME)
+                .surname(SURNAME)
                 .dateOfBirth(DATE_OF_BIRTH)
                 .gender(Gender.MALE)
-                .idCard(IDCard.builder().build())
-                .phoneNumber(PhoneNumber.builder().build())
-                .address(com.djachtoma.reference.entity.model.Address.builder().build())
+                .idCard(IDCard.builder()
+                        .seriesNumber(ID_CARD_SERIES_NUMBER)
+                        .build())
+                .phoneNumber(PhoneNumber.builder()
+                        .number(PHONE_NUMBER)
+                        .build())
+                .address(com.djachtoma.reference.entity.model.Address.builder()
+                        .address(ADDRESS)
+                        .city(CITY)
+                        .zipCode(ZIP_CODE)
+                        .build())
                 .specializations(Set.of(Specialization.EMERGENCY_MEDICINE))
                 .title(Title.ACF)
                 .build();
