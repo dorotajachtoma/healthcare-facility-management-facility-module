@@ -124,6 +124,48 @@ public class FacilityServiceTest {
         verify(facilityRepository, times(1)).save(facility);
     }
 
+    @Test
+    public void updateFacility_shouldThrowException() {
+        //given
+        FacilityDTO facilityDTO = getFacilityDTO();
+        Facility facility = getFacility();
+        when(facilityMapper.toEntity(facilityDTO)).thenReturn(facility);
+        when(facilityMapper.toDTO(facility)).thenReturn(facilityDTO);
+
+        //when
+        Throwable throwable = catchThrowable(() -> facilityService.getFacility(facility.getId()));
+
+        //then
+        assertThat(throwable).isInstanceOf(FacilityNotFoundException.class);
+        assertThat(throwable).hasMessageContaining("Facility with provided id: ID does not exist.");
+    }
+
+    @Test
+    public void deleteFacility_shouldDelete() {
+        //given
+        Facility facility = getFacility();
+        when(facilityRepository.findById(facility.getId())).thenReturn(Optional.of(facility));
+
+        //when
+        facilityService.deleteFacility(facility.getId());
+
+        //then
+        verify(facilityRepository, times(1)).delete(facility);
+    }
+
+    @Test
+    public void deleteFacility_shouldThrowException() {
+        //given
+        Facility facility = getFacility();
+
+        //when
+        Throwable throwable = catchThrowable(() -> facilityService.getFacility(facility.getId()));
+
+        //then
+        assertThat(throwable).isInstanceOf(FacilityNotFoundException.class);
+        assertThat(throwable).hasMessageContaining("Facility with provided id: ID does not exist.");
+    }
+
 
     private static Facility getFacility() {
         return Facility.builder()
