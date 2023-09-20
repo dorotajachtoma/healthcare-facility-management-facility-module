@@ -14,4 +14,5 @@ public class RedisContainerSetup {
         System.setProperty("healthcare.facility.management.database.host", redisContainer.getContainerIpAddress());
         System.setProperty("healthcare.facility.management.database.port", redisContainer.getFirstMappedPort().toString());
     }
+
 }

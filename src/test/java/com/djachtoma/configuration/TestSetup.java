@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -20,7 +21,7 @@ import static com.djachtoma.util.TestObjectUtil.getFacility;
 
 
 @RunWith(SpringRunner.class)
-@Import(RedisContainerSetup.class)
+@Import({RedisContainerSetup.class, KeyspaceConfig.class})
 @TestPropertySource(locations = "classpath:/application-test.properties")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 public class TestSetup {
