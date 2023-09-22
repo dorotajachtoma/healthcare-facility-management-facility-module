@@ -28,7 +28,7 @@ public class FacilityService {
         Iterable<FacilityDTO> facilities = Stream.of(facilityRepository.findAll().iterator())
                 .map(facility -> mapper.toDTO(facility.next()))
                 .collect(Collectors.toSet());
-        return Flux.fromIterable(facilities).publish();
+        return Flux.fromIterable(facilities);
     }
 
     public Mono<FacilityDTO> getFacility(String id) {
