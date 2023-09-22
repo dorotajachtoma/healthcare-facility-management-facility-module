@@ -110,8 +110,6 @@ public class FacilityServiceTest {
         //given
         FacilityDTO facilityDTO = getFacilityDTO();
         Facility facility = getFacility();
-        when(facilityMapper.toEntity(facilityDTO)).thenReturn(facility);
-        when(facilityMapper.toDTO(facility)).thenReturn(facilityDTO);
 
         //when
         Throwable throwable = catchThrowable(() -> facilityService.getFacility(facility.getId()));

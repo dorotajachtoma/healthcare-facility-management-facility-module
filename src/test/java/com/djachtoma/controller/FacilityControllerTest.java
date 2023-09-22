@@ -31,7 +31,7 @@ public class FacilityControllerTest extends TestSetup {
     }
 
     @Test
-    public void getAllPatientsShouldReturnAllPatient() {
+    public void getAllFacilitiesShouldReturnAllFacility() {
         //given
         FacilityDTO facilityDTO = getFacilityDTO();
         this.client.post()
@@ -63,7 +63,7 @@ public class FacilityControllerTest extends TestSetup {
     }
 
     @Test
-    public void getPatientShouldReturnFacilityDTO() {
+    public void getFacilityShouldReturnFacilityDTO() {
         //given
         FacilityDTO facilityDTO = getFacilityDTO();
         FacilityDTO created = this.client.post()
@@ -92,7 +92,7 @@ public class FacilityControllerTest extends TestSetup {
     }
 
     @Test
-    public void createPatientShouldReturnFacilityDTO() {
+    public void createFacilityShouldReturnFacilityDTO() {
         //given
         FacilityDTO facilityDTO = getFacilityDTO();
 
@@ -114,7 +114,7 @@ public class FacilityControllerTest extends TestSetup {
     }
 
     @Test
-    public void updatePatientShouldReturnFacilityDTO() {
+    public void updateFacilityShouldReturnFacilityDTO() {
         //given
         FacilityDTO facilityDTO = getFacilityDTO();
         FacilityDTO created = this.client.post()
@@ -142,7 +142,7 @@ public class FacilityControllerTest extends TestSetup {
     }
 
     @Test
-    public void deletePatientShouldDeletePatient() {
+    public void deleteFacilityShouldDeleteFacility() {
         //given
         FacilityDTO facilityDTO = getFacilityDTO();
         FacilityDTO created = this.client.post()
