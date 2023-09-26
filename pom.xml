@@ -14,7 +14,7 @@
     <artifactId>healthcare-facility-management-facility-module</artifactId>
     <version>1.1.0</version>
 
-    <name>healthcare-facility-management-patient-module</name>
+    <name>healthcare-facility-management-facility-module</name>
     <description>Spring Boot Application for management of facility records in healthcare facility management system</description>
 
 
