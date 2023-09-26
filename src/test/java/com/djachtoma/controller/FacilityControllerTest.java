@@ -2,7 +2,11 @@ package com.djachtoma.controller;
 
 import com.djachtoma.configuration.RedisContainerSetup;
 import com.djachtoma.configuration.TestSetup;
+import com.djachtoma.model.constant.Specialization;
+import com.djachtoma.model.constant.Title;
 import com.djachtoma.model.facility.dto.FacilityDTO;
+import com.djachtoma.model.physician.dto.PhysicianDTO;
+import com.djachtoma.reference.entity.model.Gender;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.List;
+import java.util.Set;
 
+import static com.djachtoma.util.TestObjectUtil.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class FacilityControllerTest extends TestSetup {
@@ -169,7 +175,25 @@ public class FacilityControllerTest extends TestSetup {
                 .city(CITY)
                 .zipCode(ZIP_CODE)
                 .address(STREET)
+                .physicians(Set.of(getPhysicianDTO()))
                 .build();
+    }
+
+    private static PhysicianDTO getPhysicianDTO() {
+        return PhysicianDTO.builder()
+                .name(NAME)
+                .surname(SURNAME)
+                .gender(Gender.MALE.name())
+                .idCardSeriesNumber(ID_CARD_SERIES_NUMBER)
+                .phoneNumber(PHONE_NUMBER)
+                .dateOfBirth(DATE_OF_BIRTH)
+                .address(ADDRESS)
+                .city(CITY)
+                .zipCode(ZIP_CODE)
+                .title(Title.CON.name())
+                .specializations(Set.of(Specialization.EMERGENCY_MEDICINE.name(), Specialization.OPHTHALMOLOGY.name()))
+                .build();
+
     }
 
 }
